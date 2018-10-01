@@ -8,6 +8,6 @@ RUN apk --no-cache --quiet manifest $APKS | awk -F "  " '{print $2;}' > /apks_fi
  && tar -xvp -f /apks_files.tar -C /rootfs/ \
  && find / --maxdepth 0 ! -name rootfs --execdir rm -rf {} +
 
-FROM scratch
+FROM scratch as save
 
 COPY --from=build /rootfs /

@@ -6,6 +6,6 @@ RUN apk --no-cache --quiet manifest $APKS | awk -F "  " '{print "/"$2;}' > /apk-
  && find / -path "/etc/apk/*" -type f >> /apk-tool.filelist \
  && tar -cvp -f /apk-tool.tar -T /apk-tool.filelist -C /
 
-FROM scratch as final-image
+FROM scratch as image
 
 COPY --from=alpine /apk-tool.tar /apk-tool.filelist /

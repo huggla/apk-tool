@@ -8,4 +8,4 @@ RUN apk --no-cache --quiet manifest $APKS | awk -F "  " '{print $2;}' > /apk-too
 
 FROM scratch as final-image
 
-COPY --from=alpine /apk-tool.tar /
+COPY --from=alpine /apk-tool.tar /apk-tool.filelist /

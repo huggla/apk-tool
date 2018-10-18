@@ -10,9 +10,9 @@ RUN apk --no-cache --quiet manifest $APKS | awk -F "  " '{print "/"$2;}' > /apk-
        ln -sf "$file" "/buildfs$file"; \
     done < /apk-tool.filelist \
  && cd /buildfs \
- && find * ! -type d ! -type c -exec ls -la {} + | awk -F " " '{print $5" "$9}' > /exclude.filelist \
+ && find * ! -type d ! -type c -exec ls -la {} + | awk -F " " '{print $5" "$9}' > /onbuild-exclude.filelist \
  && tar -cvp -f /apk-tool.tar -T /apk-tool.filelist -C /
 
 FROM scratch as image
 
-COPY --from=alpine /apk-tool.tar /apk-tool.filelist /exclude.filelist /
+COPY --from=alpine /apk-tool.tar /apk-tool.filelist /onbuild-exclude.filelist /

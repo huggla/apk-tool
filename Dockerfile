@@ -14,7 +14,7 @@ RUN mkdir -p /imagefs/apk-tool \
        cp -a "$file" "/imagefs/apk-tool$file"; \
     done < /imagefs/apk-tool/apk-tool.filelist \
  && cd /imagefs/apk-tool \
- && find * ! -type d ! -type c -exec ls -la {} + | awk -F " " '{print $5" "$9}' | sort - > /imagefs/onbuild-exclude.filelist \
+ && find * ! -type d ! -type c -exec ls -la {} + | awk -F " " '{print $5" "$9}' | sort -u - > /imagefs/onbuild-exclude.filelist \
  && gzip -f /imagefs/onbuild-exclude.filelist
 
 FROM scratch as image
